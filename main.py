@@ -28,17 +28,25 @@ args = parser.parse_args()
 torch.manual_seed(args.seed)
 
 ### Data Initialization and Loading
-from data import initialize_data, data_transforms # data.py in the same folder
-initialize_data(args.data) # extracts the zip files, makes a validation set
+from data import * # data.py in the same folder
+#initialize_data(args.data) # extracts the zip files, makes a validation set
 
 train_loader = torch.utils.data.DataLoader(
-    datasets.ImageFolder(args.data + '/train_images',
-                         transform=data_transforms),
-    batch_size=args.batch_size, shuffle=True, num_workers=1)
+    torch.utils.data.ConcatDataset(
+    [
+    datasets.ImageFolder(args.data + '/train_images', transform=data_transforms),
+    datasets.ImageFolder(args.data + '/train_images', transform=data_transform_rotate),
+    datasets.ImageFolder(args.data + '/train_images', transform=data_transform_colorjitter_brightness),
+    datasets.ImageFolder(args.data + '/train_images', transform=data_transform_colorjitter_saturation),
+    datasets.ImageFolder(args.data + '/train_images', transform=data_transform_colorjitter_contrast),
+    datasets.ImageFolder(args.data + '/train_images', transform=data_transform_colorjitter_hue)
+    ]),batch_size=args.batch_size, shuffle=True, num_workers=1)
+
+
 val_loader = torch.utils.data.DataLoader(
     datasets.ImageFolder(args.data + '/val_images',
                          transform=data_transforms),
-    batch_size=args.batch_size, shuffle=False, num_workers=1)
+    batch_size=args.batch_size, shuffle=False, num_workers=4)
 
 ### Neural Network and Optimizer
 # We define neural net in model.py so that it can be reused by the evaluate.py script
@@ -59,7 +67,7 @@ def train(epoch):
         if batch_idx % args.log_interval == 0:
             print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
                 epoch, batch_idx * len(data), len(train_loader.dataset),
-                100. * batch_idx / len(train_loader), loss.data[0]))
+                100. * batch_idx / len(train_loader), loss.item()))
 
 def validation():
     model.eval()
@@ -68,7 +76,7 @@ def validation():
     for data, target in val_loader:
         data, target = Variable(data, volatile=True), Variable(target)
         output = model(data)
-        validation_loss += F.nll_loss(output, target, size_average=False).data[0] # sum up batch loss
+        validation_loss += F.nll_loss(output, target, size_average=False).item() # sum up batch loss
         pred = output.data.max(1, keepdim=True)[1] # get the index of the max log-probability
         correct += pred.eq(target.data.view_as(pred)).cpu().sum()
 
@@ -83,4 +91,4 @@ for epoch in range(1, args.epochs + 1):
     validation()
     model_file = 'model_' + str(epoch) + '.pth'
     torch.save(model.state_dict(), model_file)
-    print('\nSaved model to ' + model_file + '. You can run `python evaluate.py ' + model_file + '` to generate the Kaggle formatted csv file')
+    print('\nSaved model to ' + model_file + '. You can run `python evaluate.py --model' + model_file + '` to generate the Kaggle formatted csv file')

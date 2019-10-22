@@ -1,0 +1,150 @@
+    1  ls
+    2  git
+    3  pwd
+    4  cd ~/.ssh
+    5  ls
+    6  cat id_rsa.pub
+    7  cd ~
+    8  ls
+    9  pwd
+   10  git clone git@github.com:anujmenta/cvassign2.git
+   11  cat id_rsa
+   12  cd ~/.ssh
+   13  cat id_rsa
+   14  cd ~
+   15  ls
+   16  nvidia -sml
+   17  nvidia -smi
+   18  nvidia-smi
+   19  python traffic-sign-detection-homework/main.py 
+   20  ls
+   21  mv test_images/ traffic-sign-detection-homework/test_images/
+   22  ls
+   23  mv train_images/ traffic-sign-detection-homework/train_images
+   24  cd traffic-sign-detection-homework/
+   25  ls
+   26  python main.py 
+   27  mkdir data
+   28  mv train_images/ data/train_images/
+   29  mv test_images/ data/test_images/
+   30  ls
+   31  python main.py 
+   32  vim data.py
+   33  python main.py 
+   34  vim data.py
+   35  python main.py 
+   36  vim data.py
+   37  python main.py 
+   38  vim data.py
+   39  python main.py 
+   40  ls
+   41  cd data
+   42  ls
+   43  cd train_images/
+   44  ls
+   45  cd ..
+   46  cd val_images/
+   47  ls
+   48  cd ..
+   49  ls
+   50  cd ..
+   51  python main.py 
+   52  ls
+   53  cd data/val_images/
+   54  ls
+   55  cd ..
+   56  ls
+   57  vi data.py 
+   58  python main.py 
+   59  vi main.py 
+   60  python main.py 
+   61  vi main.py 
+   62  python main.py 
+   63  vi main.py 
+   64  python main.py 
+   65  vi main.py 
+   66  python main.py 
+   67  vi main.py 
+   68  python main.py 
+   69  nohup python main.py > log.log &
+   70  tail -f log.log 
+   71  ls
+   72  cat log.log 
+   73  cat core.168570 
+   74  ls
+   75  cat log.log 
+   76  tail -f log.log 
+   77  top
+   78  tail -f log.log 
+   79  ls
+   80  tail -f log.log 
+   81  ls
+   82  tail -f log.log 
+   83  python evaluate.py --data data --model model/model_1.pth
+   84  source activate env
+   85  python evaluate.py --data data --model model/model_1.pth
+   86  conda install tqdm
+   87  python evaluate.py --data data --model model/model_1.pth
+   88  mkdir model
+   89  python evaluate.py --data data --model model/model_1.pth
+   90  ls
+   91  mv model_10.pth model/
+   92  python evaluate.py --data data --model model/model_10.pth
+   93  ls
+   94  exit
+   95  cd traffic-sign-detection-homework/
+   96  ls
+   97  python main.py 
+   98  wget https://repo.anaconda.com/archive/Anaconda3-2019.10-MacOSX-x86_64.sh
+   99  ls
+  100  rm Anaconda3-2019.10-MacOSX-x86_64.sh 
+  101  module load anaconda3/5.3.1
+  102  conda create --name cv python=3.6
+  103  source activate cv
+  104  conda info --envs
+  105  conda create --name env python=3.6
+  106  source activate env
+  107  ls
+  108  cd ..
+  109  ls
+  110  unzip nyucvfall2019.zip 
+  111  ls
+  112  ls traffic-sign-detection-homework/
+  113  ls
+  114  cd test_images/
+  115  ls
+  116  cd ..
+  117  mv test_images/ test_imagez/
+  118  mv test_imagez/test_images/ .
+  119  ls
+  120  mv train_images/ train_imagez/
+  121  mv train_imagez/train_images/ .
+  122  ls
+  123  cd test_imagez
+  124  ls
+  125  cd ..
+  126  rm -rf test_imagez/
+  127  rm -rf train_imagez/
+  128  ls
+  129  python traffic-sign-detection-homework/main.py 
+  130  conda install pytorch torchvision -c pytorch
+  131  srun --gres=gpu:k80:1
+  132  srun -c4 -t5:00:00 --mem=30000 --gres=gpu:p40:1 --pty /bin/bash
+  133  ls
+  134  exit
+  135  screen 
+  136  ls
+  137  exit
+  138  screen list
+  139  ls
+  140  screen -r
+  141  nvidia-smi
+  142  ls
+  143  cd traffic-sign-detection-homework/
+  144  ls
+  145  cd model/
+  146  ls
+  147  cd ..
+  148  %history
+  149  history
+  150  history > history.log
