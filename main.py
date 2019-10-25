@@ -40,9 +40,11 @@ train_loader = torch.utils.data.DataLoader(
     datasets.ImageFolder(args.data + '/train_images', transform=data_transform_colorjitter_saturation),
     datasets.ImageFolder(args.data + '/train_images', transform=data_transform_colorjitter_contrast),
     datasets.ImageFolder(args.data + '/train_images', transform=data_transform_colorjitter_hue),
-    # datasets.ImageFolder(args.data + '/train_images', transform=data_transform_grayscale),
+    datasets.ImageFolder(args.data + '/train_images', transform=data_transform_grayscale),
     # datasets.ImageFolder(args.data + '/train_images', transform=data_transform_pad),
-    ]),batch_size=args.batch_size, shuffle=True, num_workers=1)
+    datasets.ImageFolder(args.data + '/train_images', transform=data_transform_centercrop),
+    datasets.ImageFolder(args.data + '/train_images', transform=data_transform_shear),
+    ]),batch_size=args.batch_size, shuffle=True, num_workers=4)
 
 
 val_loader = torch.utils.data.DataLoader(
@@ -95,6 +97,6 @@ for epoch in range(1, args.epochs + 1):
     validation()
     model_file = 'model_' + str(epoch) + '.pth'
     torch.save(model.state_dict(), model_file)
-    print('\nSaved model to ' + model_file + '. You can run `python evaluate.py --model' + model_file + '` to generate the Kaggle formatted csv file')
+    print('\nSaved model to ' + model_file + '. You can run `python evaluate.py --model ' + model_file + '` to generate the Kaggle formatted csv file')
 
 
