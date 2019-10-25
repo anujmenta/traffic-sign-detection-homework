@@ -40,8 +40,8 @@ train_loader = torch.utils.data.DataLoader(
     datasets.ImageFolder(args.data + '/train_images', transform=data_transform_colorjitter_saturation),
     datasets.ImageFolder(args.data + '/train_images', transform=data_transform_colorjitter_contrast),
     datasets.ImageFolder(args.data + '/train_images', transform=data_transform_colorjitter_hue),
-    datasets.ImageFolder(args.data + '/train_images', transform=data_transform_grayscale),
-    datasets.ImageFolder(args.data + '/train_images', transform=data_transform_pad),
+    # datasets.ImageFolder(args.data + '/train_images', transform=data_transform_grayscale),
+    # datasets.ImageFolder(args.data + '/train_images', transform=data_transform_pad),
     ]),batch_size=args.batch_size, shuffle=True, num_workers=1)
 
 
@@ -57,6 +57,7 @@ model = Net()
 
 optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=args.momentum)
 scheduler = torch.optim.lr_scheduler.CyclicLR(optimizer, base_lr=0.01, max_lr=0.1)
+
 def train(epoch):
     model.train()
     for batch_idx, (data, target) in enumerate(train_loader):
