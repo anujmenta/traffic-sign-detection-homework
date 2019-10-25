@@ -65,7 +65,7 @@ data_transform_pad = transforms.Compose([
 
 data_transform_shear = transforms.Compose([
     transforms.Resize((32, 32)),
-    transforms.RandomAffine(degrees=15, shear=1)
+    transforms.RandomAffine(degrees=15, shear=1),
     transforms.ToTensor(),
     transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
 ])
