@@ -23,21 +23,21 @@ data_transform_rotate = transforms.Compose([
 
 data_transform_colorjitter_brightness = transforms.Compose([
     transforms.Resize((32, 32)),
-    transforms.ColorJitter(brightness=5),
+    transforms.ColorJitter(brightness=3),
     transforms.ToTensor(),
     transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
 ])
 
 data_transform_colorjitter_saturation = transforms.Compose([
     transforms.Resize((32, 32)),
-    transforms.ColorJitter(saturation = 5),
+    transforms.ColorJitter(saturation = 3),
     transforms.ToTensor(),
     transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
 ])
 
 data_transform_colorjitter_contrast = transforms.Compose([
     transforms.Resize((32, 32)),
-    transforms.ColorJitter(contrast = 5),
+    transforms.ColorJitter(contrast = 3),
     transforms.ToTensor(),
     transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
 ])
@@ -49,6 +49,19 @@ data_transform_colorjitter_hue = transforms.Compose([
     transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
 ])
 
+data_transform_grayscale = transforms.Compose([
+    transforms.Resize((32, 32)),
+    transforms.Grayscale(num_output_channels=3),
+    transforms.ToTensor(),
+    transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
+])
+
+data_transform_pad = transforms.Compose([
+    transforms.Resize((32, 32)),
+    transforms.Pad(3),
+    transforms.ToTensor(),
+    transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
+])
 
 def initialize_data(folder):
 #    train_zip = folder + '/train_images.zip'

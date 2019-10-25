@@ -15,8 +15,8 @@ parser.add_argument('--batch-size', type=int, default=64, metavar='N',
                     help='input batch size for training (default: 64)')
 parser.add_argument('--epochs', type=int, default=10, metavar='N',
                     help='number of epochs to train (default: 10)')
-parser.add_argument('--lr', type=float, default=0.01, metavar='LR',
-                    help='learning rate (default: 0.01)')
+parser.add_argument('--lr', type=float, default=0.0001, metavar='LR',
+                    help='learning rate (default: 0.0001)')
 parser.add_argument('--momentum', type=float, default=0.5, metavar='M',
                     help='SGD momentum (default: 0.5)')
 parser.add_argument('--seed', type=int, default=1, metavar='S',
@@ -39,7 +39,9 @@ train_loader = torch.utils.data.DataLoader(
     datasets.ImageFolder(args.data + '/train_images', transform=data_transform_colorjitter_brightness),
     datasets.ImageFolder(args.data + '/train_images', transform=data_transform_colorjitter_saturation),
     datasets.ImageFolder(args.data + '/train_images', transform=data_transform_colorjitter_contrast),
-    datasets.ImageFolder(args.data + '/train_images', transform=data_transform_colorjitter_hue)
+    datasets.ImageFolder(args.data + '/train_images', transform=data_transform_colorjitter_hue),
+    datasets.ImageFolder(args.data + '/train_images', transform=data_transform_grayscale),
+    datasets.ImageFolder(args.data + '/train_images', transform=data_transform_pad),
     ]),batch_size=args.batch_size, shuffle=True, num_workers=1)
 
 
@@ -54,7 +56,7 @@ from model import Net
 model = Net()
 
 optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=args.momentum)
-
+scheduler = torch.optim.lr_scheduler.CyclicLR(optimizer, base_lr=0.01, max_lr=0.1)
 def train(epoch):
     model.train()
     for batch_idx, (data, target) in enumerate(train_loader):
@@ -81,6 +83,7 @@ def validation():
         correct += pred.eq(target.data.view_as(pred)).cpu().sum()
 
     validation_loss /= len(val_loader.dataset)
+    scheduler.step()
     print('\nValidation set: Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)\n'.format(
         validation_loss, correct, len(val_loader.dataset),
         100. * correct / len(val_loader.dataset)))
@@ -92,3 +95,5 @@ for epoch in range(1, args.epochs + 1):
     model_file = 'model_' + str(epoch) + '.pth'
     torch.save(model.state_dict(), model_file)
     print('\nSaved model to ' + model_file + '. You can run `python evaluate.py --model' + model_file + '` to generate the Kaggle formatted csv file')
+
+
