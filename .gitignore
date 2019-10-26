@@ -1,7 +1,6 @@
 *~
 data
 graphs
-*.csv
 *.pyc
 *.pth
 *.ppm
