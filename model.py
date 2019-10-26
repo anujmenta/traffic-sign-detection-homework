@@ -14,13 +14,14 @@ class Net(nn.Module):
         self.conv3 = nn.Conv2d(200, 250, kernel_size=3)
         self.batchnorm3 = nn.BatchNorm2d(250)
         self.dropout = nn.Dropout2d()
-        self.fc1 = nn.Linear(1000, 300)
-        self.fc2 = nn.Linear(300, nclasses)
+        self.fc1 = nn.Linear(250, 100)
+        self.fc2 = nn.Linear(100, nclasses)
 
     def forward(self, x):
         bt_size = x.size(0)
         x = self.batchnorm1(F.max_pool2d(F.leaky_relu(self.conv1(x)),2))
         x = self.dropout(x)
+
         x = self.batchnorm2(F.max_pool2d(F.leaky_relu(self.conv2(x)),2))
         x = self.dropout(x)
         x = self.batchnorm3(F.max_pool2d(F.leaky_relu(self.conv3(x)),2))
