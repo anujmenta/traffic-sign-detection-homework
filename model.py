@@ -28,7 +28,6 @@ class Net(nn.Module):
         x = self.dropout(x)
 
         x = x.view(bt_size, -1)
-        print(x.size())
         x = F.relu(self.fc1(x))
         x = F.dropout(x, training=self.training)
         x = self.fc2(x)
