@@ -44,6 +44,9 @@ train_loader = torch.utils.data.DataLoader(
     # datasets.ImageFolder(args.data + '/train_images', transform=data_transform_pad),
     datasets.ImageFolder(args.data + '/train_images', transform=data_transform_centercrop),
     datasets.ImageFolder(args.data + '/train_images', transform=data_transform_shear),
+    datasets.ImageFolder(args.data + '/train_images', transform=data_transform_hrflip),
+    datasets.ImageFolder(args.data + '/train_images', transform=data_transform_vrflip),
+    datasets.ImageFolder(args.data + '/train_images', transform=data_transform_bothflip),
     ]),batch_size=args.batch_size, shuffle=True, num_workers=4)
 
 
