@@ -82,7 +82,7 @@ acc_tracker = []
 
 #optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=args.momentum)
 optimizer = optim.Adam(model.parameters(), lr=args.lr)
-scheduler = torch.optim.lr_scheduler.CyclicLR(optimizer, base_lr=0.001, max_lr=0.01)
+scheduler = torch.optim.lr_scheduler.CyclicLR(optimizer, base_lr=0.001, max_lr=0.01, cycle_momentum=False)
 
 def train(epoch):
     model.train()
