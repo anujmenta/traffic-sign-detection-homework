@@ -81,7 +81,7 @@ if use_gpu:
 acc_tracker = []
 
 #optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=args.momentum)
-lastlayers = list([model.fc1.parameters() + model.fc2.parameters())
+lastlayers = list(model.fc1.parameters() + model.fc2.parameters())
 middlelayers = list(model.conv2.parameters() + model.batchnorm2.parameters() + model.conv3.parameters() + model.batchnorm3.parameters)
 optimizer = optim.Adam([
         {"params" : lastlayers, "lr":1e-3},
