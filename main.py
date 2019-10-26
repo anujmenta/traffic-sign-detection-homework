@@ -119,7 +119,7 @@ def validation():
     scheduler.step()
     acc_tracker.append(100. * correct / len(val_loader.dataset))
     plt.plot(acc_tracker)
-    plt.save('acc_graph.png')
+    plt.savefig('acc_graph.png')
     print('\nValidation set: Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)\n'.format(
         validation_loss, correct, len(val_loader.dataset),
         100. * correct / len(val_loader.dataset)))
