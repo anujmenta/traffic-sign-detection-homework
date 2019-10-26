@@ -20,11 +20,11 @@ class Net(nn.Module):
     def forward(self, x):
         x = self.batchnorm1(F.max_pool2d(F.leaky_relu(self.conv1(x)),2))
         x = self.dropout(x)
-        x = self.batchnorm1(F.max_pool2d(F.leaky_relu(self.conv2(x)),2))
+        x = self.batchnorm2(F.max_pool2d(F.leaky_relu(self.conv2(x)),2))
         x = self.dropout(x)
-        x = self.batchnorm1(F.max_pool2d(F.leaky_relu(self.conv3(x)),2))
+        x = self.batchnorm3(F.max_pool2d(F.leaky_relu(self.conv3(x)),2))
         x = self.dropout(x)
-        
+
         x = x.view(-1, 1000)
         x = F.relu(self.fc1(x))
         x = F.dropout(x, training=self.training)
