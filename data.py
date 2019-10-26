@@ -16,7 +16,7 @@ data_transforms = transforms.Compose([
 
 data_transform_rotate = transforms.Compose([
     transforms.Resize((32, 32)),
-    transforms.RandomRotation(15),
+    transforms.RandomRotation(30),
     transforms.ToTensor(),
     transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
 ])
@@ -49,6 +49,62 @@ data_transform_colorjitter_hue = transforms.Compose([
     transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
 ])
 
+data_transform_grayscale = transforms.Compose([
+    transforms.Resize((32, 32)),
+    transforms.Grayscale(num_output_channels=3),
+    transforms.ToTensor(),
+    transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
+])
+
+data_transform_pad = transforms.Compose([
+    transforms.Resize((32, 32)),
+    transforms.Pad(3),
+    transforms.ToTensor(),
+    transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
+])
+
+data_transform_shear = transforms.Compose([
+    transforms.Resize((32, 32)),
+    transforms.RandomAffine(degrees=15, shear=2),
+    transforms.ToTensor(),
+    transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
+])
+
+data_transform_centercrop = transforms.Compose([
+    transforms.Resize((32, 32)),
+    transforms.CenterCrop(32),
+    transforms.ToTensor(),
+    transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
+])
+
+data_transform_hrflip = transforms.Compose([
+    transforms.Resize((32, 32)),
+    transforms.RandomHorizontalFlip(1),
+    transforms.ToTensor(),
+    transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
+])
+
+data_transform_vrflip = transforms.Compose([
+    transforms.Resize((32, 32)),
+    transforms.RandomVerticalFlip(1),
+    transforms.ToTensor(),
+    transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
+])
+
+data_transform_bothflip = transforms.Compose([
+    transforms.Resize((32, 32)),
+    transforms.RandomHorizontalFlip(1),
+    transforms.RandomVerticalFlip(1),
+    transforms.ToTensor(),
+    transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
+])
+
+data_transform_translate = transforms.Compose([
+    transforms.Resize((32, 32)),
+    transforms.RandomAffine(degrees=15, translate=(0.1,0.1)),
+    transforms.ToTensor(),
+    transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
+])
 
 def initialize_data(folder):
 #    train_zip = folder + '/train_images.zip'

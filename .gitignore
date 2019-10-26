@@ -1,7 +1,8 @@
 *~
 data
+graphs
 *.pyc
 *.pth
-*.csv
 *.ppm
 core*
+.DS_Store
