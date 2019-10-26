@@ -124,7 +124,7 @@ def validation():
         correct += pred.eq(target.data.view_as(pred)).cpu().sum()
 
     validation_loss /= len(val_loader.dataset)
-    scheduler.step()
+    scheduler.step(validation_loss)
     acc_tracker.append(100. * correct / len(val_loader.dataset))
     plt.plot(acc_tracker)
     plt.savefig('acc_graph.png')
