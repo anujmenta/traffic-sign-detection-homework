@@ -16,8 +16,8 @@ parser.add_argument('--batch-size', type=int, default=64, metavar='N',
                     help='input batch size for training (default: 64)')
 parser.add_argument('--epochs', type=int, default=10, metavar='N',
                     help='number of epochs to train (default: 10)')
-parser.add_argument('--lr', type=float, default=0.001, metavar='LR',
-                    help='learning rate (default: 0.001)')
+parser.add_argument('--lr', type=float, default=5e-4, metavar='LR',
+                    help='learning rate (default: 5e-4)')
 parser.add_argument('--momentum', type=float, default=0.9, metavar='M',
                     help='SGD momentum (default: 0.9)')
 parser.add_argument('--seed', type=int, default=1, metavar='S',
@@ -81,7 +81,12 @@ if use_gpu:
 acc_tracker = []
 
 #optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=args.momentum)
-optimizer = optim.Adam(model.parameters(), lr=args.lr)
+lastlayers = list(model.fc1.parameters(), model.fc2.parameters())
+middlelayers = list(model.conv2.parameters(), model.batchnorm2.parameters(), model.conv3.parameters(), model.batchnorm3.parameters)
+optimizer = optim.Adam([
+        {"params" : lastlayers, "lr":1e-3},
+        {"params" : middlelayers, "lr":4e-2}
+    ], lr=args.lr)
 scheduler = torch.optim.lr_scheduler.CyclicLR(optimizer, base_lr=0.001, max_lr=0.01, cycle_momentum=False)
 
 def train(epoch):
