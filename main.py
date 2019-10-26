@@ -83,7 +83,7 @@ acc_tracker = []
 #optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=args.momentum)
 lastlayers = list(model.fc1.parameters()) + list(model.fc2.parameters())
 middlelayers = list(model.conv2.parameters())+list(model.batchnorm2.parameters())+list(model.conv3.parameters())+list(model.batchnorm3.parameters())
-optimizer = optim.Adam([
+optimizer = optim.AdamW([
         {"params" : lastlayers, "lr":1e-3},
         {"params" : middlelayers, "lr":4e-2}
     ], lr=args.lr)
@@ -121,7 +121,7 @@ def validation():
         correct += pred.eq(target.data.view_as(pred)).cpu().sum()
 
     validation_loss /= len(val_loader.dataset)
-#    scheduler.step()
+    scheduler.step()
     acc_tracker.append(100. * correct / len(val_loader.dataset))
     plt.plot(acc_tracker)
     plt.savefig('acc_graph.png')
