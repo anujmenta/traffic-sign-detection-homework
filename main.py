@@ -6,6 +6,7 @@ import torch.nn.functional as F
 import torch.optim as optim
 from torchvision import datasets, transforms
 from torch.autograd import Variable
+from matplotlib import pyplot as plt
 
 # Training settings
 parser = argparse.ArgumentParser(description='PyTorch GTSRB example')
@@ -60,6 +61,7 @@ train_loader = torch.utils.data.DataLoader(
     datasets.ImageFolder(args.data + '/train_images', transform=data_transform_hrflip),
     datasets.ImageFolder(args.data + '/train_images', transform=data_transform_vrflip),
     datasets.ImageFolder(args.data + '/train_images', transform=data_transform_bothflip),
+    datasets.ImageFolder(args.data + '/train_images', transform=data_transform_translate),
     ]),batch_size=args.batch_size, shuffle=True, num_workers=args.numworkers, pin_memory=use_gpu)
 
 
@@ -76,7 +78,10 @@ model = Net()
 if use_gpu:
     model.cuda()
 
-optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=args.momentum)
+acc_tracker = []
+
+#optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=args.momentum)
+optimizer = optim.Adam(model.parameters(), lr=args.lr)
 scheduler = torch.optim.lr_scheduler.CyclicLR(optimizer, base_lr=0.001, max_lr=0.01)
 
 def train(epoch):
@@ -112,11 +117,15 @@ def validation():
 
     validation_loss /= len(val_loader.dataset)
     scheduler.step()
+    acc_tracker.append(100. * correct / len(val_loader.dataset))
+    plt.plot(acc_tracker)
+    plt.save('acc_graph.png')
     print('\nValidation set: Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)\n'.format(
         validation_loss, correct, len(val_loader.dataset),
         100. * correct / len(val_loader.dataset)))
 
-
+plt.plot(acc_tracker)
+plt.save('acc_graph.png')
 for epoch in range(1, args.epochs + 1):
     train(epoch)
     validation()
