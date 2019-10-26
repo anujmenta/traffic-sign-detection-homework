@@ -74,7 +74,7 @@ val_loader = torch.utils.data.DataLoader(
 # We define neural net in model.py so that it can be reused by the evaluate.py script
 from model import Net, resnet34
 #model = Net()
-model = models.34()
+model = models.resnet34()
 
 if use_gpu:
     model.cuda()
