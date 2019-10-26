@@ -72,7 +72,7 @@ val_loader = torch.utils.data.DataLoader(
 
 ### Neural Network and Optimizer
 # We define neural net in model.py so that it can be reused by the evaluate.py script
-from model import Net, resnet34
+from model import Net
 #model = Net()
 model = models.resnet34()
 
