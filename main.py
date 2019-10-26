@@ -124,8 +124,6 @@ def validation():
         validation_loss, correct, len(val_loader.dataset),
         100. * correct / len(val_loader.dataset)))
 
-plt.plot(acc_tracker)
-plt.save('acc_graph.png')
 for epoch in range(1, args.epochs + 1):
     train(epoch)
     validation()
