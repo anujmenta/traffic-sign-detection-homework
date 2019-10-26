@@ -21,7 +21,6 @@ class Net(nn.Module):
         bt_size = x.size(0)
         x = self.batchnorm1(F.max_pool2d(F.leaky_relu(self.conv1(x)),2))
         x = self.dropout(x)
-
         x = self.batchnorm2(F.max_pool2d(F.leaky_relu(self.conv2(x)),2))
         x = self.dropout(x)
         x = self.batchnorm3(F.max_pool2d(F.leaky_relu(self.conv3(x)),2))
@@ -32,3 +31,5 @@ class Net(nn.Module):
         x = F.dropout(x, training=self.training)
         x = self.fc2(x)
         return F.log_softmax(x, dim=1)
+
+
