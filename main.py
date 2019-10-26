@@ -23,6 +23,7 @@ parser.add_argument('--seed', type=int, default=1, metavar='S',
                     help='random seed (default: 1)')
 parser.add_argument('--log-interval', type=int, default=10, metavar='N',
                     help='how many batches to wait before logging training status')
+parser.add_argument('--numworkers', type=int, default=4)
 args = parser.parse_args()
 
 torch.manual_seed(args.seed)
@@ -47,13 +48,13 @@ train_loader = torch.utils.data.DataLoader(
     datasets.ImageFolder(args.data + '/train_images', transform=data_transform_hrflip),
     datasets.ImageFolder(args.data + '/train_images', transform=data_transform_vrflip),
     datasets.ImageFolder(args.data + '/train_images', transform=data_transform_bothflip),
-    ]),batch_size=args.batch_size, shuffle=True, num_workers=4)
+    ]),batch_size=args.batch_size, shuffle=True, num_workers=args.numworkers)
 
 
 val_loader = torch.utils.data.DataLoader(
     datasets.ImageFolder(args.data + '/val_images',
                          transform=data_transforms),
-    batch_size=args.batch_size, shuffle=False, num_workers=4)
+    batch_size=args.batch_size, shuffle=False, num_workers=args.numworkers)
 
 ### Neural Network and Optimizer
 # We define neural net in model.py so that it can be reused by the evaluate.py script
