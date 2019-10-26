@@ -106,6 +106,27 @@ data_transform_translate = transforms.Compose([
     transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
 ])
 
+data_transform_colorjitter_brightness_neg = transforms.Compose([
+    transforms.Resize((32, 32)),
+    transforms.ColorJitter(brightness=-5),
+    transforms.ToTensor(),
+    transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
+])
+
+data_transform_colorjitter_saturation_neg = transforms.Compose([
+    transforms.Resize((32, 32)),
+    transforms.ColorJitter(saturation=-5),
+    transforms.ToTensor(),
+    transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
+])
+
+data_transform_colorjitter_contrast_neg = transforms.Compose([
+    transforms.Resize((32, 32)),
+    transforms.ColorJitter(contrast=-5),
+    transforms.ToTensor(),
+    transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
+])
+
 def initialize_data(folder):
 #    train_zip = folder + '/train_images.zip'
 #    test_zip = folder + '/test_images.zip'
