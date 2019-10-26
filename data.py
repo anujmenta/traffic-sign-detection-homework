@@ -106,23 +106,50 @@ data_transform_translate = transforms.Compose([
     transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
 ])
 
-data_transform_colorjitter_brightness_neg = transforms.Compose([
+data_transform_colorjitter_brightness_hflip = transforms.Compose([
     transforms.Resize((32, 32)),
-    transforms.ColorJitter(brightness=-5),
+    transforms.ColorJitter(brightness=5),
+    transforms.RandomHorizontalFlip(1),
     transforms.ToTensor(),
     transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
 ])
 
-data_transform_colorjitter_saturation_neg = transforms.Compose([
+data_transform_colorjitter_saturation_hflip = transforms.Compose([
     transforms.Resize((32, 32)),
-    transforms.ColorJitter(saturation=-5),
+    transforms.ColorJitter(saturation=5),
+    transforms.RandomHorizontalFlip(1),
     transforms.ToTensor(),
     transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
 ])
 
-data_transform_colorjitter_contrast_neg = transforms.Compose([
+data_transform_colorjitter_contrast_hflip = transforms.Compose([
     transforms.Resize((32, 32)),
-    transforms.ColorJitter(contrast=-5),
+    transforms.ColorJitter(contrast=5),
+    transforms.RandomHorizontalFlip(1),
+    transforms.ToTensor(),
+    transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
+])
+
+data_transform_colorjitter_brightness_vflip = transforms.Compose([
+    transforms.Resize((32, 32)),
+    transforms.ColorJitter(brightness=5),
+    transforms.RandomVerticalFlip(1),
+    transforms.ToTensor(),
+    transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
+])
+
+data_transform_colorjitter_saturation_vflip = transforms.Compose([
+    transforms.Resize((32, 32)),
+    transforms.ColorJitter(saturation=5),
+    transforms.RandomVerticalFlip(1),
+    transforms.ToTensor(),
+    transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
+])
+
+data_transform_colorjitter_contrast_vflip = transforms.Compose([
+    transforms.Resize((32, 32)),
+    transforms.ColorJitter(contrast=5),
+    transforms.RandomVerticalFlip(1),
     transforms.ToTensor(),
     transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
 ])

@@ -62,9 +62,12 @@ train_loader = torch.utils.data.DataLoader(
     datasets.ImageFolder(args.data + '/train_images', transform=data_transform_vrflip),
     datasets.ImageFolder(args.data + '/train_images', transform=data_transform_bothflip),
     datasets.ImageFolder(args.data + '/train_images', transform=data_transform_translate),
-    datasets.ImageFolder(args.data + '/train_images', transform=data_transform_colorjitter_brightness_neg),
-    datasets.ImageFolder(args.data + '/train_images', transform=data_transform_colorjitter_saturation_neg),
-    datasets.ImageFolder(args.data + '/train_images', transform=data_transform_colorjitter_contrast_neg),
+    datasets.ImageFolder(args.data + '/train_images', transform=data_transform_colorjitter_brightness_hflip),
+    datasets.ImageFolder(args.data + '/train_images', transform=data_transform_colorjitter_saturation_hflip),
+    datasets.ImageFolder(args.data + '/train_images', transform=data_transform_colorjitter_contrast_hflip),
+    datasets.ImageFolder(args.data + '/train_images', transform=data_transform_colorjitter_brightness_vflip),
+    datasets.ImageFolder(args.data + '/train_images', transform=data_transform_colorjitter_saturation_vflip),
+    datasets.ImageFolder(args.data + '/train_images', transform=data_transform_colorjitter_contrast_vflip),
     ]),batch_size=args.batch_size, shuffle=True, num_workers=args.numworkers, pin_memory=use_gpu)
 
 
