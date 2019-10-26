@@ -75,6 +75,7 @@ val_loader = torch.utils.data.DataLoader(
 from model import Net
 #model = Net()
 model = models.resnet34()
+print(model)
 
 if use_gpu:
     model.cuda()
