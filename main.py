@@ -39,6 +39,11 @@ else:
     use_gpu = False
     print("Using CPU")
 
+FloatTensor = torch.cuda.FloatTensor if use_gpu else torch.FloatTensor
+LongTensor = torch.cuda.LongTensor if use_gpu else torch.LongTensor
+ByteTensor = torch.cuda.ByteTensor if use_gpu else torch.ByteTensor
+Tensor = FloatTensor
+
 train_loader = torch.utils.data.DataLoader(
     torch.utils.data.ConcatDataset(
     [
@@ -55,18 +60,21 @@ train_loader = torch.utils.data.DataLoader(
     datasets.ImageFolder(args.data + '/train_images', transform=data_transform_hrflip),
     datasets.ImageFolder(args.data + '/train_images', transform=data_transform_vrflip),
     datasets.ImageFolder(args.data + '/train_images', transform=data_transform_bothflip),
-    ]),batch_size=args.batch_size, shuffle=True, num_workers=args.numworkers)
+    ]),batch_size=args.batch_size, shuffle=True, num_workers=args.numworkers, pin_memory=use_gpu)
 
 
 val_loader = torch.utils.data.DataLoader(
     datasets.ImageFolder(args.data + '/val_images',
                          transform=data_transforms),
-    batch_size=args.batch_size, shuffle=False, num_workers=args.numworkers)
+    batch_size=args.batch_size, shuffle=False, num_workers=args.numworkers, pin_memory=use_gpu)
 
 ### Neural Network and Optimizer
 # We define neural net in model.py so that it can be reused by the evaluate.py script
 from model import Net
 model = Net()
+
+if use_gpu:
+    model.cuda()
 
 optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=args.momentum)
 scheduler = torch.optim.lr_scheduler.CyclicLR(optimizer, base_lr=0.01, max_lr=0.1)
@@ -75,6 +83,9 @@ def train(epoch):
     model.train()
     for batch_idx, (data, target) in enumerate(train_loader):
         data, target = Variable(data), Variable(target)
+        if use_gpu:
+            data = data.cuda()
+            target = target.cuda()
         optimizer.zero_grad()
         output = model(data)
         loss = F.nll_loss(output, target)
@@ -91,6 +102,9 @@ def validation():
     correct = 0
     for data, target in val_loader:
         data, target = Variable(data, volatile=True), Variable(target)
+        if use_gpu:
+                data = data.cuda()
+                target = target.cuda()
         output = model(data)
         validation_loss += F.nll_loss(output, target, size_average=False).item() # sum up batch loss
         pred = output.data.max(1, keepdim=True)[1] # get the index of the max log-probability
