@@ -32,6 +32,13 @@ torch.manual_seed(args.seed)
 from data import * # data.py in the same folder
 #initialize_data(args.data) # extracts the zip files, makes a validation set
 
+if torch.cuda.is_available():
+    use_gpu = True
+    print("Using GPU")
+else:
+    use_gpu = False
+    print("Using CPU")
+
 train_loader = torch.utils.data.DataLoader(
     torch.utils.data.ConcatDataset(
     [
