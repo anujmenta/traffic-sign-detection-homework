@@ -4,7 +4,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
-from torchvision import datasets, transforms
+from torchvision import datasets, transforms, models
 from torch.autograd import Variable
 from matplotlib import pyplot as plt
 
@@ -74,7 +74,7 @@ val_loader = torch.utils.data.DataLoader(
 # We define neural net in model.py so that it can be reused by the evaluate.py script
 from model import Net, resnet34
 #model = Net()
-model = resnet34()
+model = models.34()
 
 if use_gpu:
     model.cuda()
