@@ -49,7 +49,8 @@ train_loader = torch.utils.data.DataLoader(
     torch.utils.data.ConcatDataset(
     [
     datasets.ImageFolder(args.data + '/train_images', transform=data_transforms),
-    datasets.ImageFolder(args.data + '/train_images', transform=data_transform_rotate),
+    datasets.ImageFolder(args.data + '/train_images', transform=data_transform_rotate1),
+    datasets.ImageFolder(args.data + '/train_images', transform=data_transform_rotate2),
     datasets.ImageFolder(args.data + '/train_images', transform=data_transform_colorjitter_brightness),
     datasets.ImageFolder(args.data + '/train_images', transform=data_transform_colorjitter_saturation),
     datasets.ImageFolder(args.data + '/train_images', transform=data_transform_colorjitter_contrast),

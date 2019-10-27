@@ -16,7 +16,14 @@ data_transforms = transforms.Compose([
 
 data_transform_rotate = transforms.Compose([
     transforms.Resize((32, 32)),
-    transforms.RandomRotation(30),
+    transforms.RandomRotation(20),
+    transforms.ToTensor(),
+    transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
+])
+
+data_transform_rotate = transforms.Compose([
+    transforms.Resize((32, 32)),
+    transforms.RandomRotation(60),
     transforms.ToTensor(),
     transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
 ])
@@ -108,48 +115,48 @@ data_transform_translate = transforms.Compose([
 
 data_transform_colorjitter_brightness_hflip = transforms.Compose([
     transforms.Resize((32, 32)),
-    transforms.ColorJitter(brightness=5),
-    transforms.RandomHorizontalFlip(1),
+    transforms.ColorJitter(brightness=3),
+    transforms.RandomHorizontalFlip(0.7),
     transforms.ToTensor(),
     transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
 ])
 
 data_transform_colorjitter_saturation_hflip = transforms.Compose([
     transforms.Resize((32, 32)),
-    transforms.ColorJitter(saturation=5),
-    transforms.RandomHorizontalFlip(1),
+    transforms.ColorJitter(saturation=3),
+    transforms.RandomHorizontalFlip(0.7),
     transforms.ToTensor(),
     transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
 ])
 
 data_transform_colorjitter_contrast_hflip = transforms.Compose([
     transforms.Resize((32, 32)),
-    transforms.ColorJitter(contrast=5),
-    transforms.RandomHorizontalFlip(1),
+    transforms.ColorJitter(contrast=3),
+    transforms.RandomHorizontalFlip(0.7),
     transforms.ToTensor(),
     transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
 ])
 
 data_transform_colorjitter_brightness_vflip = transforms.Compose([
     transforms.Resize((32, 32)),
-    transforms.ColorJitter(brightness=5),
-    transforms.RandomVerticalFlip(1),
+    transforms.ColorJitter(brightness=3),
+    transforms.RandomVerticalFlip(0.7),
     transforms.ToTensor(),
     transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
 ])
 
 data_transform_colorjitter_saturation_vflip = transforms.Compose([
     transforms.Resize((32, 32)),
-    transforms.ColorJitter(saturation=5),
-    transforms.RandomVerticalFlip(1),
+    transforms.ColorJitter(saturation=3),
+    transforms.RandomVerticalFlip(0.7),
     transforms.ToTensor(),
     transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
 ])
 
 data_transform_colorjitter_contrast_vflip = transforms.Compose([
     transforms.Resize((32, 32)),
-    transforms.ColorJitter(contrast=5),
-    transforms.RandomVerticalFlip(1),
+    transforms.ColorJitter(contrast=3),
+    transforms.RandomVerticalFlip(0.7),
     transforms.ToTensor(),
     transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
 ])
