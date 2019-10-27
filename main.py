@@ -132,11 +132,15 @@ def validation():
         validation_loss, correct, len(val_loader.dataset),
         100. * correct / len(val_loader.dataset)))
 
+lr_tracker = []
+
 for epoch in range(1, args.epochs + 1):
     train(epoch)
     validation()
     for param_group in optimizer.param_groups:
-        print(param_group['lr'])
+        lr_tracker.append(param_group['lr'])
+    plt.plot(lr_tracker)
+    plt.savefig('lr_tracker.png')
     model_file = 'model_' + str(epoch) + '.pth'
     torch.save(model.state_dict(), model_file)
     print('\nSaved model to ' + model_file + '. You can run `python evaluate.py --model ' + model_file + '` to generate the Kaggle formatted csv file')
