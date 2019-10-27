@@ -11,7 +11,7 @@ class Net(nn.Module):
         self.batchnorm1 = nn.BatchNorm2d(100)
         self.conv2 = nn.Conv2d(100, 150, kernel_size=5)
         self.batchnorm2 = nn.BatchNorm2d(150)
-        self.conv3 = nn.Conv2d(150, 250, kernel_size=3)
+        self.conv3 = nn.Conv2d(150, 250, kernel_size=5)
         self.batchnorm3 = nn.BatchNorm2d(250)
         self.conv4 = nn.Conv2d(250, 400, kernel_size=3)
         self.batchnorm4 = nn.BatchNorm2d(400)
