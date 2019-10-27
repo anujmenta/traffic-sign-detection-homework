@@ -11,10 +11,10 @@ class Net(nn.Module):
         self.batchnorm1 = nn.BatchNorm2d(100)
         self.conv2 = nn.Conv2d(100, 200, kernel_size=5)
         self.batchnorm2 = nn.BatchNorm2d(200)
-        self.conv3 = nn.Conv2d(200, 250, kernel_size=3)
-        self.batchnorm3 = nn.BatchNorm2d(250)
+        self.conv3 = nn.Conv2d(200, 400, kernel_size=3)
+        self.batchnorm3 = nn.BatchNorm2d(400)
         self.dropout = nn.Dropout2d()
-        self.fc1 = nn.Linear(250, 100)
+        self.fc1 = nn.Linear(400, 100)
         self.fc2 = nn.Linear(100, nclasses)
 
     def forward(self, x):
