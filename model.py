@@ -42,7 +42,7 @@ class Net(nn.Module):
         theta = theta.view(-1, 2, 3)
 
         grid = F.affine_grid(theta, x.size())
-        x = F.grid_sample(x, grid)l
+        x = F.grid_sample(x, grid)
 
         return x
 
