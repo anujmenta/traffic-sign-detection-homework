@@ -18,7 +18,7 @@ class Net(nn.Module):
         self.fc2 = nn.Linear(100, nclasses)
 
         self.localization = nn.Sequential(
-            nn.Conv2d(1, 8, kernel_size=7),
+            nn.Conv2d(3, 8, kernel_size=7),
             nn.MaxPool2d(2, stride=2),
             nn.ReLU(True),
             nn.Conv2d(8, 10, kernel_size=5),
