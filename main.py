@@ -103,7 +103,7 @@ def train(epoch):
             target = target.cuda()
         optimizer.zero_grad()
         output = model(data)
-        loss = F.nll_loss(output, target, log_input=Flase)
+        loss = F.nll_loss(output, target, log_input=False)
         loss.backward()
         optimizer.step()
         if batch_idx % args.log_interval == 0:
