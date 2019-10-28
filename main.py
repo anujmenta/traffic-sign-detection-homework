@@ -78,7 +78,7 @@ train_loader = torch.utils.data.DataLoader(
 val_loader = torch.utils.data.DataLoader(
     datasets.ImageFolder(args.data + '/val_images',
                          transform=data_transforms),
-    batch_size=args.batch_size, shuffležFalse, num_workers=args.numworkers, pin_memory=use_gpu)
+    batch_size=args.batch_size, shuffle=False, num_workers=args.numworkers, pin_memory=use_gpu)
 
 ### Neural Network and Optimizer
 # We define neural net in model.py so that it can be reused by the evaluate.py script
