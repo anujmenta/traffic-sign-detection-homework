@@ -63,12 +63,12 @@ train_loader = torch.utils.data.DataLoader(
     datasets.ImageFolder(args.data + '/train_images', transform=data_transform_vrflip),
     datasets.ImageFolder(args.data + '/train_images', transform=data_transform_bothflip),
     datasets.ImageFolder(args.data + '/train_images', transform=data_transform_translate),
-    datasets.ImageFolder(args.data + '/train_images', transform=data_transform_colorjitter_brightness_hflip),
-    datasets.ImageFolder(args.data + '/train_images', transform=data_transform_colorjitter_saturation_hflip),
-    datasets.ImageFolder(args.data + '/train_images', transform=data_transform_colorjitter_contrast_hflip),
-    datasets.ImageFolder(args.data + '/train_images', transform=data_transform_colorjitter_brightness_vflip),
-    datasets.ImageFolder(args.data + '/train_images', transform=data_transform_colorjitter_saturation_vflip),
-    datasets.ImageFolder(args.data + '/train_images', transform=data_transform_colorjitter_contrast_vflip),
+    # datasets.ImageFolder(args.data + '/train_images', transform=data_transform_colorjitter_brightness_hflip),
+    # datasets.ImageFolder(args.data + '/train_images', transform=data_transform_colorjitter_saturation_hflip),
+    # datasets.ImageFolder(args.data + '/train_images', transform=data_transform_colorjitter_contrast_hflip),
+    # datasets.ImageFolder(args.data + '/train_images', transform=data_transform_colorjitter_brightness_vflip),
+    # datasets.ImageFolder(args.data + '/train_images', transform=data_transform_colorjitter_saturation_vflip),
+    # datasets.ImageFolder(args.data + '/train_images', transform=data_transform_colorjitter_contrast_vflip),
     ]),batch_size=args.batch_size, shuffle=True, num_workers=args.numworkers, pin_memory=use_gpu)
 
 
@@ -90,9 +90,9 @@ acc_tracker = []
 optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=args.momentum)
 # lastlayers = list(model.fc1.parameters()) + list(model.fc2.parameters())
 # middlelayers = list(model.conv2.parameters())+list(model.batchnorm2.parameters())+list(model.conv3.parameters())+list(model.batchnorm3.parameters())
-#optimizer = optim.AdamW(model.parameters(), lr=args.lr)
-scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'min', patience=5, factor=0.5)
-
+optimizer = optim.Adam(model.parameters(), lr=args.lr, weight_decay=0.01)
+#scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'min', patience=5, factor=0.5)
+scheduler = torch.optim.lr_scheduler.CyclicLR(optimizer, base_lr=0.001, max_lr=0.01, cycle_momentum=False)
 def train(epoch):
     model.train()
     for batch_idx, (data, target) in enumerate(train_loader):
