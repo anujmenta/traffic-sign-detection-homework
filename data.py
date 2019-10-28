@@ -101,7 +101,7 @@ data_transform_vrflip = transforms.Compose([
 data_transform_bothflip = transforms.Compose([
     transforms.Resize((32, 32)),
     transforms.RandomHorizontalFlip(0.7),
-    transforms.RandomVerticalFlip(1),
+    transforms.RandomVerticalFlip(0.7),
     transforms.ToTensor(),
     transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
 ])
