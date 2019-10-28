@@ -127,6 +127,7 @@ def validation():
     validation_loss /= len(val_loader.dataset)
     scheduler.step(validation_loss)
     acc_tracker.append(100. * correct / len(val_loader.dataset))
+    plt.figure(10)
     plt.plot(acc_tracker)
     plt.savefig('acc_graph.png')
     print('\nValidation set: Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)\n'.format(
@@ -140,6 +141,7 @@ for epoch in range(1, args.epochs + 1):
     validation()
     for param_group in optimizer.param_groups:
         lr_tracker.append(param_group['lr'])
+    plt.figure(20)
     plt.plot(lr_tracker)
     plt.savefig('lr_tracker.png')
     model_file = 'model_' + str(epoch) + '.pth'
