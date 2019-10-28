@@ -161,6 +161,29 @@ data_transform_colorjitter_contrast_vflip = transforms.Compose([
     transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
 ])
 
+data_transform_randomperspective = transforms.Compose([
+    transforms.Resize((32, 32)),
+    transforms.RandomPerspective(),
+    transforms.ToTensor(),
+    transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
+])
+
+data_transform_vflip_rotation = transforms.Compose([
+    transforms.Resize((32, 32)),
+    transforms.RandomAffine(degrees=15),
+    transforms.RandomVerticalFlip(1),
+    transforms.ToTensor(),
+    transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
+])
+
+data_transform_hflip_rotation = transforms.Compose([
+    transforms.Resize((32, 32)),
+    transforms.RandomAffine(degrees=15),
+    transforms.RandomHorizontalFlip(1),
+    transforms.ToTensor(),
+    transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
+])
+
 def initialize_data(folder):
 #    train_zip = folder + '/train_images.zip'
 #    test_zip = folder + '/test_images.zip'
