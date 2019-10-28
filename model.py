@@ -14,8 +14,8 @@ class Net(nn.Module):
         self.conv3 = nn.Conv2d(200, 250, kernel_size=3)
         self.batchnorm3 = nn.BatchNorm2d(250)
         self.dropout = nn.Dropout2d()
-        self.fc1 = nn.Linear(250, 100)
-        self.fc2 = nn.Linear(100, nclasses)
+        self.fc1 = nn.Linear(250*2*2, 350)
+        self.fc2 = nn.Linear(350, nclasses)
 
         self.localization = nn.Sequential(
             nn.Conv2d(3, 8, kernel_size=7),
