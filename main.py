@@ -103,7 +103,7 @@ def train(epoch):
             target = target.cuda()
         optimizer.zero_grad()
         output = model(data)
-        loss = F.nll_loss(output, target, log_input=False)
+        loss = F.nll_loss(F.log_softmax(output), target)
         loss.backward()
         optimizer.step()
         if batch_idx % args.log_interval == 0:
@@ -121,7 +121,7 @@ def validation():
                 data = data.cuda()
                 target = target.cuda()
         output = model(data)
-        validation_loss += F.nll_loss(output, target, size_average=False, log_input=False).item() # sum up batch loss
+        validation_loss += F.nll_loss(F.log_softmax(output), target, size_average=False).item() # sum up batch loss
         pred = output.data.max(1, keepdim=True)[1] # get the index of the max log-probability
         correct += pred.eq(target.data.view_as(pred)).cpu().sum()
 
