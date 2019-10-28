@@ -26,7 +26,7 @@ class Net(nn.Module):
             nn.ReLU(True)
         )
         self.fc_loc = nn.Sequential(
-            nn.Linear(10 * 3 * 3, 32),
+            nn.Linear(10 * 4 * 4, 32),
             nn.ReLU(True),
             nn.Linear(32, 3 * 2)
         )
