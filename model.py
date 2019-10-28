@@ -57,7 +57,7 @@ class Net(nn.Module):
         x = self.batchnorm3(F.max_pool2d(F.leaky_relu(self.conv3(x)),2))
         x = self.dropout(x)
 
-        x = x.view(bt_size, -1)
+        x = x.view(-1, 250*2*2)
         x = F.relu(self.fc1(x))
         x = F.dropout(x, training=self.training)
         x = self.fc2(x)
