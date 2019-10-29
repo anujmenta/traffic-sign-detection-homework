@@ -16,7 +16,7 @@ parser.add_argument('--batch-size', type=int, default=64, metavar='N',
                     help='input batch size for training (default: 64)')
 parser.add_argument('--epochs', type=int, default=10, metavar='N',
                     help='number of epochs to train (default: 10)')
-parser.add_argument('--lr', type=float, default=0.0001, metavar='LR',
+parser.add_argument('--lr', type=float, default=0.01, metavar='LR',
                     help='learning rate (default: 5e-4)')
 parser.add_argument('--momentum', type=float, default=0.9, metavar='M',
                     help='SGD momentum (default: 0.9)')
@@ -129,6 +129,9 @@ def validation():
 
     validation_loss /= len(val_loader.dataset)
     valid_loss_tracker.append(validation_loss)
+    plt.figure(30)
+    plt.plot(valid_loss_tracker)
+    plt.savefig('validation_loss.png')
     scheduler.step(validation_loss)
     acc_tracker.append(100. * correct / len(val_loader.dataset))
     plt.figure(10)
