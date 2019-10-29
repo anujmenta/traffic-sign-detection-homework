@@ -37,11 +37,18 @@ def pil_loader(path):
         with Image.open(f) as img:
             return img.convert('RGB')
 
-
+transforms = [data_transforms, data_transform_rotate, data_transform_colorjitter_brightness, data_transform_colorjitter_saturation, data_transform_colorjitter_contrast, data_transform_colorjitter_hue, data_transform_grayscale, data_transform_centercrop, data_transform_shear, data_transform_hrflip, data_transform_vrflip, data_transform_bothflip, data_transform_translate]
 output_file = open(args.outfile, "w")
 output_file.write("Filename,ClassId\n")
 for f in tqdm(os.listdir(test_dir)):
     if 'ppm' in f:
+        output = torch.zeros([1, 43], dtype=torch.float32)
+        with torch.no_grad():
+            for i in range(0,len(transforms)):
+                data = transforms[i](pil_loader(test_dir + '/' + f))
+                data = data.view(1, data.size(0), data.size(1), data.size(2))
+                data = Variable(data)
+                output = output.add(model(data))
         data = data_transforms(pil_loader(test_dir + '/' + f))
         data = data.view(1, data.size(0), data.size(1), data.size(2))
         data = Variable(data, volatile=True)

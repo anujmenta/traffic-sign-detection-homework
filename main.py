@@ -116,13 +116,20 @@ def validation():
         correct += pred.eq(target.data.view_as(pred)).cpu().sum()
 
     validation_loss /= len(val_loader.dataset)
+    validation_loss_tracker.append(validation_loss)
+    plt.figure(30)
+    plt.plot(validation_loss_tracker)
+    plt.savefig('validation_loss.png')
 #    scheduler.step()
     acc_tracker.append(100. * correct / len(val_loader.dataset))
+    plt.figure(20)
     plt.plot(acc_tracker)
     plt.savefig('acc_graph.png')
     print('\nValidation set: Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)\n'.format(
         validation_loss, correct, len(val_loader.dataset),
         100. * correct / len(val_loader.dataset)))
+
+validation_loss_tracker = []
 
 for epoch in range(1, args.epochs + 1):
     train(epoch)
