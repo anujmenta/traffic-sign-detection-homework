@@ -16,7 +16,7 @@ parser.add_argument('--batch-size', type=int, default=64, metavar='N',
                     help='input batch size for training (default: 64)')
 parser.add_argument('--epochs', type=int, default=10, metavar='N',
                     help='number of epochs to train (default: 10)')
-parser.add_argument('--lr', type=float, default=0.0003, metavar='LR',
+parser.add_argument('--lr', type=float, default=0.0001, metavar='LR',
                     help='learning rate (default: 5e-4)')
 parser.add_argument('--momentum', type=float, default=0.9, metavar='M',
                     help='SGD momentum (default: 0.9)')
@@ -50,7 +50,7 @@ train_loader = torch.utils.data.DataLoader(
     [
     datasets.ImageFolder(args.data + '/train_images', transform=data_transforms),
     datasets.ImageFolder(args.data + '/train_images', transform=data_transform_rotate1),
-    datasets.ImageFolder(args.data + '/train_images', transform=data_transform_rotate2),
+    # datasets.ImageFolder(args.data + '/train_images', transform=data_transform_rotate2),
     datasets.ImageFolder(args.data + '/train_images', transform=data_transform_colorjitter_brightness),
     datasets.ImageFolder(args.data + '/train_images', transform=data_transform_colorjitter_saturation),
     datasets.ImageFolder(args.data + '/train_images', transform=data_transform_colorjitter_contrast),
@@ -61,7 +61,7 @@ train_loader = torch.utils.data.DataLoader(
     datasets.ImageFolder(args.data + '/train_images', transform=data_transform_shear),
     datasets.ImageFolder(args.data + '/train_images', transform=data_transform_hrflip),
     datasets.ImageFolder(args.data + '/train_images', transform=data_transform_vrflip),
-    datasets.ImageFolder(args.data + '/train_images', transform=data_transform_bothflip),
+    # datasets.ImageFolder(args.data + '/train_images', transform=data_transform_bothflip),
     datasets.ImageFolder(args.data + '/train_images', transform=data_transform_translate),
     # datasets.ImageFolder(args.data + '/train_images', transform=data_transform_colorjitter_brightness_hflip),
     # datasets.ImageFolder(args.data + '/train_images', transform=data_transform_colorjitter_saturation_hflip),
@@ -128,6 +128,7 @@ def validation():
         correct += pred.eq(target.data.view_as(pred)).cpu().sum()
 
     validation_loss /= len(val_loader.dataset)
+    valid_loss_tracker.append(validation_loss)
     scheduler.step(validation_loss)
     acc_tracker.append(100. * correct / len(val_loader.dataset))
     plt.figure(10)
@@ -138,7 +139,10 @@ def validation():
         100. * correct / len(val_loader.dataset)))
 
 lr_tracker = []
-
+valid_loss_tracker = []
+plt.figure(30)
+plt.plot(valid_loss_tracker)
+plt.savefig('validation_loss.png')
 for epoch in range(1, args.epochs + 1):
     train(epoch)
     validation()
