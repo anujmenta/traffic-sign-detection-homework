@@ -29,7 +29,7 @@ model = Net()
 model.load_state_dict(state_dict)
 model.eval()
 
-from data import data_transforms
+from data import data_transforms, data_transforms, data_transform_rotate, data_transform_colorjitter_brightness, data_transform_colorjitter_saturation, data_transform_colorjitter_contrast, data_transform_colorjitter_hue, data_transform_grayscale, data_transform_centercrop, data_transform_shear, data_transform_hrflip, data_transform_vrflip, data_transform_bothflip, data_transform_translate
 
 test_dir = args.data + '/test_images'
 
